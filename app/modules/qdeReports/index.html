@@ -1,0 +1,25 @@
+<div id="vmModule">
+    <form class="form-horizontal" role="form">
+        <div v-for="group in groups">
+            <h4 class="header blue"><i class="ace-icon fa fa-pencil"></i>{{group.category}}</h4>
+
+            <div class="form-group" v-for="row in group.rows">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> {{row.key}} </label>
+                <div class="col-sm-9">
+                    <input type="text" id="form-field-1" class="col-xs-10 col-sm-8" :value="row.value"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="clearfix form-actions">
+                <div class="col-md-offset-3 col-md-9">
+                    <button class="btn btn-sm btn-success" type="reset" @click="fetchData()">
+                        <i class="ace-icon fa fa-undo bigger-110"></i>
+                        刷新
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="modules/qdeReports/main.js"></script>

@@ -1,0 +1,47 @@
+<div id="vmModule">
+    <div class="page-header">
+        <h1>
+            Welcome , {{userId}} !
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="header smaller lighter green">系统模块</h3>
+
+            <!--<button class="btn btn-app btn-success">-->
+                <!--<i class="ace-icon fa fa-undo bigger-230"></i>-->
+                <!--管理员管理-->
+            <!--</button>-->
+
+        </div>
+    </div>
+
+    <div class="space"></div>
+
+
+    <div class="col-xs-4">
+        <ul>
+            <li v-for="menu in menus">
+                {{menu.name}}
+                <ul>
+                    <li v-for="submenu in menu.submenus">
+                        {{submenu.name}}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-4">
+        <ul>
+            <li v-for="icon in iconCls">
+                <a href="#">
+                    <i :class="'menu-icon fa ' + icon"></i>
+                    <span class="menu-text"> {{icon}} </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+<script src="modules/home/main.js"></script>

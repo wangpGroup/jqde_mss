@@ -1,0 +1,49 @@
+<div id="vmModule">
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-xs btn-success" @click="fetchData()">
+                <i class="ace-icon glyphicon glyphicon-refresh bigger-100"></i>刷新
+            </button>
+        </div>
+    </div>
+
+    <div class="space-4"></div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th class="center" width="60">序号</th>
+                    <th>模块名称</th>
+                    <th>模块ID</th>
+                    <th>菜单位置</th>
+                    <th class="hidden-480">排序号</th>
+                    <th class="hidden-480">主机</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr v-for="(item, index) in list" @dblclick="edit(item)">
+                    <td class="center">{{index+1}}</td>
+                    <td>{{item.serviceName}}</td>
+                    <td>{{item.serviceId}}</td>
+                    <td>{{item.folder}}</td>
+                    <td class="hidden-480">{{item.sortNo}}</td>
+                    <td class="hidden-480">{{item.host}}</td>
+                    <td class="center">
+                        <div class="hidden-sm hidden-xs action-buttons">
+                            <a class="green" href="javascript:;" @click="edit(item)">
+                                <i class="ace-icon fa fa-pencil bigger-130"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div><!-- /.span -->
+    </div>
+
+</div>
+<script src="modules/modulesMgr/main.js"></script>

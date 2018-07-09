@@ -1,0 +1,28 @@
+<form class="form-horizontal" role="form" id="vmModule">
+    <div v-for="(group, i) in groups">
+        <h4 class="header blue"><i class="ace-icon fa fa-pencil"></i>{{group.category}}</h4>
+        <div class="form-group" v-for="(row, i2) in group.rows">
+            <label class="col-sm-3 control-label no-padding-right" :for="'form-field-'+i+'-'+i2"> {{row.name}}</label>
+            <div class="col-sm-9">
+                <input type="text" class="col-xs-10 col-sm-5 form-field" :id="'form-field-'+i+'-'+i2" :name="row.key"
+                       :value="row.value"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+            <button class="btn btn-sm btn-info" type="button" @click="update()">
+                <i class="ace-icon fa fa-floppy-o bigger-125"></i>
+                保存
+            </button>
+            <button class="btn btn-sm btn-success" type="reset" style="margin-left:10px;" @click="fetchData()">
+                <i class="ace-icon fa fa-undo bigger-110"></i>
+                刷新
+            </button>
+
+        </div>
+    </div>
+
+</form>
+<script src="modules/qdeOptions/main.js"></script>

@@ -1,0 +1,34 @@
+<form id="vmEdit" class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right"> 模块ID </label>
+        <div class="col-sm-9">
+            <input type="text" class="col-xs-10" readonly="readonly" v-model="item.serviceId"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right"> 模块名称 </label>
+        <div class="col-sm-9">
+            <input type="text" class="col-xs-10" readonly="readonly" v-model="item.serviceName"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right"> 菜单位置 </label>
+        <div class="col-sm-9">
+            <input type="text" class="col-xs-10" readonly="readonly" v-model="item.folder"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right"> 顺序号 </label>
+        <div class="col-sm-9">
+            <input type="text" class="col-xs-10" v-model="item.sortNo"/>
+        </div>
+    </div>
+</form>
+<script>
+    var vmEdit = new Vue({
+        el: '#vmEdit',
+        data: {
+            item: {}
+        }
+    })
+</script>

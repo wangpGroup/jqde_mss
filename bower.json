@@ -1,0 +1,16 @@
+{
+  "name": "jqde_mss",
+  "description": "",
+  "version": "1.0.0",
+  "homepage": "http://192.168.10.158/InfcnFrontDev/jqde_mss",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "vue": "2",
+    "mockjs": "^1.0.0",
+    "vue-resource": "^1.0.3",
+    "codemirror": "^5.19.0",
+    "zTree": "^3.5.26",
+    "underscore": "*"
+  }
+}

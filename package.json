@@ -1,0 +1,20 @@
+{
+  "name": "jqde_mss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "clean": "gulp clean",
+    "dev": "gulp dev",
+    "build": "gulp build"
+  },
+  "author": "yangkk",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "browser-sync": "^2.9.11",
+    "del": "^2.2.1",
+    "gulp": "^3.9.0"
+  }
+}

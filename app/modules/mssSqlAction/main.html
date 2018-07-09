@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Elasticsearch-sql client</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="vendor/dataTables/css/jquery.dataTables.min.css"/>
+</head>
+
+<body ng-app="elasticsearchSqlApp" ng-controller="MainController">
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-sm-12 col-md-12 main">
+
+            <!-- Query area -->
+            <div class="search-area">
+                <textarea id="queryTextarea">SELECT * FROM dict</textarea>
+                <button type="button" ng-click="search()" id="searchButton" class="btn btn-success search-button"
+                        ng-bind-html="getButtonContent(searchLoading,'Search')" ng-cloak>
+                </button>
+                <button type="button" ng-click="exportCSV()" id="exportCSV" class="btn btn-primary " ng-cloak>Export CSV
+                    <span class="glyphicon glyphicon-share"></span></button>
+            </div>
+
+            <!-- Error box, displayed only on errors -->
+            <div id="errorBox" ng-hide="error == ''" class="alert alert-danger fadein" role="alert" ng-cloak>
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                <span ng-model="error">{{error}}</span>
+            </div>
+
+            <!-- Results area, displayed after search -->
+            <div class="fadein" ng-show="resultsColumns.length > 0 || showResults" ng-cloak>
+                <div>
+                    <h2 class="sub-header">Results ({{amountDescription}})</h2>
+                </div>
+
+                <div class="table-responsive" id="searchResultZone">
+                    <table class="table table-striped" id="searchResult">
+                    </table>
+                </div>
+            </div>
+
+            <!-- explan area , displayed after explan -->
+            <div class="fadein" ng-show="resultExplan" ng-cloak>
+                <h2 class="sub-header">Results</h2>
+                <div class="table-responsive">
+                    <textarea id="explanResult"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Jquery include -->
+<script src="vendor/jquery/jquery-2.1.4.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/dataTables/js/jquery.dataTables.min.js"></script>
+
+<!-- CodeMirror includes -->
+<script src="vendor/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="vendor/codemirror/lib/codemirror.css">
+<script src="vendor/codemirror/mode/sql/sql.js"></script>
+<script src="vendor/codemirror/mode/javascript/javascript.js"></script>
+<link rel="stylesheet" href="vendor/codemirror/addon/hint/show-hint.css"/>
+<script src="vendor/codemirror/addon/hint/show-hint.js"></script>
+<script src="vendor/codemirror/addon/hint/sql-hint.js"></script>
+
+<!-- AngularJS -->
+<script src="vendor/download/download.min.js"></script>
+<script src="vendor/angularjs/angular.min.js"></script>
+<script src="vendor/angularjs/angular-animate.min.js"></script>
+<script src="vendor/angularjs/angular-sanitize.min.js"></script>
+
+<script src="../../js/config.js"></script>
+
+<script src="table_presenter.js"></script>
+<script src="editor.js"></script>
+<script src="mapping_parser.js"></script>
+
+<script src="query.js"></script>
+<script src="controllers.js"></script>
+
+<script type="text/javascript">
+    // show errorText in error box.
+    function errorOccured(errorText) {
+        if (errorText == undefined) {
+            errorText = "Error occured! response is not avalible."
+        }
+
+        $("#errorBoxText").html(errorText)
+        $("#errorBox").show('slow')
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<div style="margin-left: -20px;margin-right: -20px;margin-top: -8px;">
+    <iframe id="ifmMonitor" style="width: 100%;height: 2500px;border: 0;"scrolling="no"></iframe>
+</div>
+<script>
+    ifmMonitor.src = Config.apiPath + '/ifcmonitor/index.html?topnav=0';
+
+    ifmMonitor.onload = function () {
+        this.document.body.style.backgroundImage = 'none';
+    };
+</script>

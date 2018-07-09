@@ -1,0 +1,334 @@
+<div id="vmEdit" class="tabbable">
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active">
+            <a data-toggle="tab" href="#home">
+                <i class="green ace-icon fa fa-pencil-square-o bigger-120"></i>
+                基本信息
+            </a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#messages">
+                <i class="green ace-icon fa fa-key bigger-120"></i>
+                权限设置
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- PAGE CONTENT BEGINS -->
+                    <form class="form-horizontal" id="validation-form" role="form">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="userid"> 用户ID：</label>
+
+                            <div class="col-sm-9">
+                                <div class="clearfix">
+                                    <input type="text" id="userid" name="userid" placeholder="Username" class="col-xs-5"
+                                           v-model="item.userId"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="password">
+                                密码： </label>
+
+                            <div class="col-sm-9">
+                                <div class="clearfix">
+                                    <input type="password" id="password" name="password" placeholder="Password"
+                                           class="col-xs-5" v-model="item.password"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="username"> 用户姓名： </label>
+
+                            <div class="col-sm-9">
+                                <div class="clearfix">
+                                    <input type="text" id="username" name="username" placeholder="Name" class="col-xs-5"
+                                           v-model="item.name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> 用户性别：</label>
+
+                            <div class="col-sm-9">
+                                <input name="sex" type="radio" id="form-field-man" v-model="item.sex" value="M">
+                                <label for="form-field-man">
+                                    男
+                                </label>
+                                <input type="radio" name="sex" id="form-field-wuman" v-model="item.sex" value="F"/>
+                                <label for="form-field-wuman">
+                                    女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="phone"> 手机：</label>
+
+                            <div class="col-sm-9">
+                                <div class="clearfix">
+                                    <input type="text" id="phone" name="phone" placeholder="Phone" class="col-xs-10"
+                                           v-model="item.phone"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="email">
+                                Email：</label>
+
+                            <div class="col-sm-9">
+                                <div class="clearfix">
+                                    <input type="text" id="email" name="email" placeholder="Email" class="col-xs-10"
+                                           v-model="item.email"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="department">
+                                单位：</label>
+
+                            <div class="col-sm-9">
+                                <div class="clearfix">
+                                    <input type="text" id="department" name="department" placeholder="Department"
+                                           class="col-xs-10" v-model="item.department"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> 状态： </label>
+
+                            <div class="col-xs-3">
+                                <label>
+                                    <input name="switch-field-1" class="ace ace-switch ace-switch-4" type="checkbox"
+                                           v-model="item.enabled"/>
+                                    <span class="lbl" style="margin-top: 7px;"></span>
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div>
+
+        <div id="messages" class="tab-pane fade">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="widget-box widget-color-blue2">
+                        <div class="widget-header">
+                            <h4 class="widget-title lighter smaller">Choose Permissions</h4>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main padding-8">
+                                <ul id="tree" class="ztree"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+
+    .modal-dialog {
+        width: 768px;
+    }
+
+    .help-block {
+        display: inline-block;
+        margin-left: 8px;
+    }
+
+    .widget-body {
+        background-color: #FFF;
+        height: 320px;
+        overflow-y: scroll;
+    }
+
+</style>
+<link rel="stylesheet" href="vendors/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="vendors/zTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="vendors/zTree/js/jquery.ztree.excheck.js"></script>
+<script>
+    $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        //if($(e.target).attr('href') == "#home") doSomethingNow();
+    });
+    var vmEdit = new Vue({
+        el: '#vmEdit',
+        data: {
+            item: {},
+            ajaxPramas: {}
+        },
+        watch: {
+            item: function (val) {
+                if (val.userId && val.userId != '') {
+                    this.fetchUserPrivs(val);
+                }
+            }
+        },
+        mounted: function () {
+            var $this = this;
+
+            //console.log(param.name);
+
+            this.fetchAllPrivs();
+
+            $('#validation-form').validate({
+                errorElement: 'div',
+                errorClass: 'help-block',
+                focusInvalid: true,
+                ignore: "",
+                rules: {
+                    userid: {required: true},
+                    password: {required: true},
+                    username: {required: true}
+                },
+                messages: {
+                    userid: {required: "用户ID不能为空"},
+                    password: {required: "密码不能为空"},
+                    username: {required: "用户姓名不能为空"}
+                },
+                highlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                },
+                success: function (e) {
+                    $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+                    $(e).remove();
+                },
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element);
+                }
+            });
+
+        },
+        methods: {
+            // 验证表单
+            valid: function () {
+                // refresh ajaxprams
+                this.updateAjaxPramas();
+
+                return $('#validation-form').valid();
+            },
+            // 获取全部权限数据
+            fetchAllPrivs: function () {
+                var $this = this;
+                JqdeMods.ajax('qdeAdmin', 'getAllPrivileges').then(function (result) {
+                    var nodes = $this.toNodes(result);
+                    var setting = {
+                        check: {enable: true, chkboxType: {"Y": "ps", "N": "ps"}}
+                    };
+                    var treeObj = $.fn.zTree.init($("#tree"), setting, nodes);
+
+                    // user privs init
+                    if (result.userPrivileges) {
+                        for (var i in result.userPrivileges) {
+                            var userPrivilege = result.userPrivileges[i];
+                            for (var j in userPrivilege.privs) {
+                                var nodeId = userPrivilege.serviceId + '_' + userPrivilege.privs[j];
+                                var node = treeObj.getNodeByParam("id", nodeId, null);
+                                treeObj.checkNode(node, true, true);
+                            }
+                        }
+                    }
+                });
+            },
+            // 权限数据转换成TreeData
+            toNodes: function (result) {
+                var tModules = [], tModuleMap = {};
+                for (var i in result.all) {
+                    var service = result.all[i];
+                    if (!tModuleMap[service.folder]) {
+                        var tModule = {
+                            name: service.folder,
+                            open: true,
+                            children: []
+                        };
+                        tModules.push(tModule);
+                        tModuleMap[service.folder] = tModule;
+                    }
+
+                    var tService = {
+                        id: service.serviceId,
+                        name: service.serviceName,
+                        children: []
+                    };
+
+                    for (var key in service.privileges) {
+                        var privilege = service.privileges[key];
+                        var tPrivilege = {
+                            id: service.serviceId + '_' + key,
+                            name: privilege
+                        };
+                        tService.children.push(tPrivilege);
+                    }
+                    tModuleMap[service.folder].children.push(tService);
+                }
+                return tModules;
+            },
+            // 获取user的权限数据
+            fetchUserPrivs: function (item) {
+                var $this = this;
+                JqdeMods.ajax('qdeAdmin', 'getAllPrivileges', {
+                    "userId": item.userId
+                }).then(function (result) {
+                    // user privs init
+                    if (result.userPrivileges) {
+                        var treeObj = $.fn.zTree.getZTreeObj('tree');
+                        for (var i in result.userPrivileges) {
+                            var userPrivilege = result.userPrivileges[i];
+                            for (var j in userPrivilege.privs) {
+                                // checked user node
+                                var nodeId = userPrivilege.serviceId + '_' + userPrivilege.privs[j];
+                                var node = treeObj.getNodeByParam("id", nodeId, null);
+                                treeObj.checkNode(node, true, true);
+
+                                // expand selected node
+                                // nodeId = userPrivilege.serviceId;
+                                // node = treeObj.getNodeByParam("id", nodeId, null);
+                                // treeObj.expandNode(node, true, true);
+                            }
+                        }
+                    }
+                });
+            },
+            // 更新ajaxPramas
+            updateAjaxPramas: function () {
+
+                var treeObj = $.fn.zTree.getZTreeObj("tree");
+                var nodes = treeObj.getCheckedNodes(true);
+
+                var privileges = [], privilegeMap = {};
+                for (var i in nodes) {
+                    var node = nodes[i];
+                    if (node.level == 2) {
+                        var ids = node.id.split('_');
+                        var serviceId = ids[0]
+                        var privId = ids[1];
+                        if (!privilegeMap[serviceId]) {
+                            var privilege = {
+                                "serviceId": serviceId, "privs": []
+                            };
+                            privileges.push(privilege);
+                            privilegeMap[serviceId] = privilege;
+                        }
+
+                        privilegeMap[serviceId].privs.push(privId);
+                    }
+                }
+
+                this.ajaxPramas = {
+                    userInfo: this.item,
+                    privileges: privileges
+                };
+            }
+        }
+    });
+</script>
